@@ -15,7 +15,6 @@ class GildedRose(var items: Array<Item>) {
                         if (quality > 50) {
                             quality = 50
                         }
-                        sellIn--
                     }
                     ItemType.BACKSTAGE_PASSES.itemName -> {
                         if (sellIn > 10) {
@@ -30,7 +29,6 @@ class GildedRose(var items: Array<Item>) {
                         if (quality > 50) {
                             quality = 50
                         }
-                        sellIn--
                     }
                     ItemType.SULFURAS.itemName -> {
                         // do nothing
@@ -44,8 +42,11 @@ class GildedRose(var items: Array<Item>) {
                         if (quality < 0) {
                             quality = 0
                         }
-                        sellIn--
                     }
+                }
+                sellIn = when(name) {
+                    ItemType.SULFURAS.itemName -> sellIn
+                    else -> sellIn - 1
                 }
             }
         }
