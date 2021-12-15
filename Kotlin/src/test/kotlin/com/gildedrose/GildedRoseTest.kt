@@ -70,7 +70,7 @@ internal class GildedRoseTest {
         "-1,12",
     )
     fun `given aged brie with quality 10, updateQuality should increase quality according to spec`(sellIn: Int, expectedQuality: Int) {
-        val items = arrayOf(Item("Aged Brie", sellIn, 10))
+        val items = arrayOf(Item(ItemType.BRIE.itemName, sellIn, 10))
         val app = GildedRose(items)
         app.updateQuality()
         assertEquals(expectedQuality, app.items[0].quality)
@@ -85,7 +85,7 @@ internal class GildedRoseTest {
         "0,49",
     )
     fun `given aged brie, updateQuality should never increase quality above 50`(sellIn: Int, quality: Int) {
-        val items = arrayOf(Item("Aged Brie", sellIn, quality))
+        val items = arrayOf(Item(ItemType.BRIE.itemName, sellIn, quality))
         val app = GildedRose(items)
         app.updateQuality()
         assertEquals(50, app.items[0].quality)
@@ -94,7 +94,7 @@ internal class GildedRoseTest {
     @ParameterizedTest(name = "given sulfuras with sellIn {0}, updateQuality should never change quality or sellIn")
     @ValueSource(ints = [1, 0, -1])
     fun `given sulfuras, updateQuality should never change quality or sellIn`(sellIn: Int) {
-        val items = arrayOf(Item("Sulfuras, Hand of Ragnaros", sellIn, 80))
+        val items = arrayOf(Item(ItemType.SULFURAS.itemName, sellIn, 80))
         val app = GildedRose(items)
         app.updateQuality()
         assertEquals(80, app.items[0].quality)
@@ -113,7 +113,7 @@ internal class GildedRoseTest {
         "-1,0",
     )
     fun `backstage passes increases and decreases in quality according to specs`(sellIn: Int, expectedQuality: Int) {
-        val items = arrayOf(Item("Backstage passes to a TAFKAL80ETC concert", sellIn, 10))
+        val items = arrayOf(Item(ItemType.BACKSTAGE_PASSES.itemName, sellIn, 10))
         val app = GildedRose(items)
         app.updateQuality()
         assertEquals(expectedQuality, app.items[0].quality)
