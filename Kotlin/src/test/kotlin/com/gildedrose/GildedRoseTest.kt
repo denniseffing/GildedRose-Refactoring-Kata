@@ -118,6 +118,23 @@ internal class GildedRoseTest {
         app.updateQuality()
         assertEquals(expectedQuality, app.items[0].quality)
     }
+
+    @ParameterizedTest(name = "given conjured item with sellIn {0} and quality 7, should yield quality {1}")
+    @CsvSource(
+            "1,5",
+            "0,3",
+            "-1,3",
+    )
+    fun `given conjured item quality 7, should yield quality according to specs`(sellIn: Int, expectedQuality: Int) {
+        val items = arrayOf(
+            Item("Conjured Foo", sellIn, 7),
+            Item("Conjured Bar", sellIn, 7),
+        )
+        val app = GildedRose(items)
+        app.updateQuality()
+        assertEquals(expectedQuality, app.items[0].quality)
+        assertEquals(expectedQuality, app.items[1].quality)
+    }
 }
 
 

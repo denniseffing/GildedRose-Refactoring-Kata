@@ -5,30 +5,40 @@ class GildedRose(var items: Array<Item>) {
     fun updateQuality() {
         for (i in items) {
             i.apply {
-                quality = when (name) {
-                    ItemType.BRIE.itemName -> limitQuality(
-                            if (sellIn > 0) {
-                                quality + 1
-                            } else {
-                                quality + 2
-                            })
-                    ItemType.BACKSTAGE_PASSES.itemName -> limitQuality(
-                            if (sellIn > 10) {
-                                quality + 1
-                            } else if (sellIn > 5) {
-                                quality + 2
-                            } else if (sellIn > 0) {
-                                quality + 3
-                            } else {
-                                0
-                            })
-                    ItemType.SULFURAS.itemName -> quality
+                quality = when {
+                    name == ItemType.BRIE.itemName -> limitQuality(
+                        if (sellIn > 0) {
+                            quality + 1
+                        } else {
+                            quality + 2
+                        }
+                    )
+                    name == ItemType.BACKSTAGE_PASSES.itemName -> limitQuality(
+                        if (sellIn > 10) {
+                            quality + 1
+                        } else if (sellIn > 5) {
+                            quality + 2
+                        } else if (sellIn > 0) {
+                            quality + 3
+                        } else {
+                            0
+                        }
+                    )
+                    name == ItemType.SULFURAS.itemName -> quality
+                    name.startsWith(ItemType.CONJURED.itemName) -> limitQuality(
+                        if (sellIn > 0) {
+                            quality - 2
+                        } else {
+                            quality - 4
+                        }
+                    )
                     else -> limitQuality(
-                            if (sellIn > 0) {
-                                quality - 1
-                            } else {
-                                quality - 2
-                            })
+                        if (sellIn > 0) {
+                            quality - 1
+                        } else {
+                            quality - 2
+                        }
+                    )
                 }
 
                 sellIn = when (name) {
