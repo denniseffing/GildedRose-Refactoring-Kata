@@ -136,5 +136,3 @@ internal class GildedRoseTest {
         assertEquals(expectedQuality, app.items[1].quality)
     }
 }
-
-
